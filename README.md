@@ -1,64 +1,136 @@
 # Credit Card Fraud Detection using Machine Learning
 
-## Problem Statement
-Credit card fraud is a highly imbalanced classification problem where fraudulent transactions represent a very small fraction of total activity.  
-The goal of this project is to build a machine learning system that can accurately detect fraud while balancing precision and recall.
+## Project Overview
 
-## Dataset
-The dataset contains real-world inspired transaction data with:
-- Transaction amount
-- Time-based features
-- Merchant category
-- Geographic information
-- Fraud label (`is_fraud`)
+This project focuses on detecting fraudulent credit card transactions using machine learning techniques. Fraud detection is a highly imbalanced classification problem where fraudulent cases are extremely rare compared to normal transactions.
 
-The dataset is highly imbalanced (~0.6% fraud cases).
+The objective of this project was to build an effective fraud detection model that can maximize fraud detection (recall) while minimizing false alarms (precision).
+
+---
+
+## Dataset Description
+
+The dataset contains anonymized credit card transaction records with behavioral features and a binary target variable:
+
+- **0 → Normal Transaction**
+- **1 → Fraudulent Transaction**
+
+Key challenges:
+
+- Highly imbalanced dataset
+- Fraud patterns are complex and nonlinear
+- High cost of misclassification
+
+---
+
 ## Project Workflow
 
-### 1. Data Preprocessing
-- Removed identifiers to prevent leakage
-- Extracted time-based features (`hour`, `day_of_week`)
-- Encoded categorical features using One-Hot Encoding
-- Built preprocessing pipeline using `ColumnTransformer`
+The project was completed following a structured machine learning pipeline:
 
-### 2. Baseline Model — Logistic Regression
-- Used `class_weight='balanced'` to handle imbalance
-- Achieved:
-  - ROC-AUC ≈ 0.93
-  - High recall but very low precision
-- Showed limitations of linear models on non-linear fraud patterns
+1. Data Cleaning and Preprocessing  
+2. Exploratory Data Analysis (EDA)  
+3. Handling Class Imbalance  
+4. Baseline Model – Logistic Regression  
+5. Threshold Tuning  
+6. Advanced Model – XGBoost  
+7. Model Evaluation and Comparison  
+8. External Dataset Validation  
 
-### 3. Exploratory Data Analysis
-EDA revealed:
-- Fraud transactions tend to have higher amounts
-- Fraud patterns vary by hour and merchant category
-- Relationships are non-linear → motivated tree-based models
+---
 
-### 4. Improved Model — XGBoost
-- Used gradient boosting with imbalance handling (`scale_pos_weight`)
-- Achieved:
-  - ROC-AUC ≈ 0.995
-  - Major improvement in fraud detection precision
-- Captured non-linear interactions missed by logistic regression
+## Models Used
 
-### 5. Threshold Optimization
-Instead of using default 0.5 threshold, evaluated precision–recall tradeoffs to simulate real-world fraud detection behavior.
+###  Logistic Regression (Baseline Model)
+
+- Applied class weighting to handle imbalance
+- Performed threshold tuning to improve precision
+- Served as baseline model
+
+Performance (after tuning):
+
+- Recall ≈ 61%
+- Precision ≈ 27%
+
+---
+
+### XGBoost (Final Model)
+
+- Used `scale_pos_weight` to handle class imbalance
+- Captured nonlinear fraud patterns effectively
+- Achieved significantly better performance
+
+Final performance (after threshold tuning):
+
+- Recall ≈ 85%
+- Precision ≈ 61%
+- ROC-AUC ≈ 0.99
+
+---
+
+## Model Evaluation Strategy
+
+Due to class imbalance, accuracy alone is not meaningful.
+
+Key evaluation metrics used:
+
+- Precision
+- Recall
+- F1-Score
+- ROC-AUC
+- Confusion Matrix
+
+Threshold tuning was performed to balance fraud detection capability and false alarm rate.
+
+---
+
+## External Validation
+
+The final model was tested on a completely unseen dataset to ensure real-world reliability.
+
+External test performance:
+
+- Recall ≈ 79%
+- Precision ≈ 50%
+
+This confirms that the model generalizes well and does not suffer from overfitting.
+
+---
+
+## Model Saving
+
+The final trained pipeline (preprocessing + XGBoost model) was saved using Joblib for deployment readiness.
+
+---
 
 ## Key Learnings
-- Fraud detection is not about accuracy — it’s about recall vs precision tradeoff.
-- Linear models struggle with interaction-heavy tabular data.
-- Tree-based boosting models (XGBoost) perform significantly better.
-- Proper preprocessing pipelines prevent data leakage.
-- Threshold tuning is critical for real-world deployment.
+
+- Handling class imbalance is critical in fraud detection
+- Threshold tuning is essential for real-world ML systems
+- Linear models have limitations in complex pattern detection
+- Ensemble models like XGBoost significantly improve performance
+- Model evaluation should always include external validation
+
+---
 
 ## Tech Stack
-- Python
-- Pandas / NumPy
-- Scikit-learn
-- XGBoost
-- Matplotlib / Seaborn
 
-## Future Work
-- Model explainability using SHAP
-- Hyperparameter tuning
-- Deployment as a fraud prediction API
+- Python
+- Pandas, NumPy
+- Scikit-Learn
+- XGBoost
+- Matplotlib, Seaborn
+- Joblib
+
+---
+
+## Project Structure
+- Logistic Regression Notebook
+- XGBoost Model Notebook
+- Saved Model Pipeline (.pkl)
+- README.md
+
+## Future Improvements
+- Real-time fraud detection pipeline
+- Feature engineering using transaction history
+- Hyperparameter tuning using Optuna
+- Model deployment via API or web application
