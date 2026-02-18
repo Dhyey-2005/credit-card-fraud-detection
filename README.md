@@ -102,7 +102,7 @@ Why XGBoost?
 
 After threshold optimization:
 
-- Fraud Recall: **~80%**
+- Fraud Recall: **~85%**
 - Fraud Precision: **~61%**
 - ROC-AUC Score: **~0.99**
 
