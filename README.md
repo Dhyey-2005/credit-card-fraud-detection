@@ -1,136 +1,165 @@
-# Credit Card Fraud Detection using Machine Learning
+# 💳 Credit Card Fraud Detection System (Deployed ML Project)
 
-## Project Overview
+## 📌 Project Overview
 
-This project focuses on detecting fraudulent credit card transactions using machine learning techniques. Fraud detection is a highly imbalanced classification problem where fraudulent cases are extremely rare compared to normal transactions.
+This project implements an end-to-end Machine Learning pipeline to detect fraudulent credit card transactions. The system handles severe class imbalance, identifies complex fraud patterns, and is deployed as a live web application using Streamlit.
 
-The objective of this project was to build an effective fraud detection model that can maximize fraud detection (recall) while minimizing false alarms (precision).
-
----
-
-## Dataset Description
-
-The dataset contains anonymized credit card transaction records with behavioral features and a binary target variable:
-
-- **0 → Normal Transaction**
-- **1 → Fraudulent Transaction**
-
-Key challenges:
-
-- Highly imbalanced dataset
-- Fraud patterns are complex and nonlinear
-- High cost of misclassification
+The goal of this project is to build a practical fraud detection system that balances fraud detection accuracy with minimizing false alarms.
 
 ---
 
-## Project Workflow
+## 🚀 Live Demo
 
-The project was completed following a structured machine learning pipeline:
-
-1. Data Cleaning and Preprocessing  
-2. Exploratory Data Analysis (EDA)  
-3. Handling Class Imbalance  
-4. Baseline Model – Logistic Regression  
-5. Threshold Tuning  
-6. Advanced Model – XGBoost  
-7. Model Evaluation and Comparison  
-8. External Dataset Validation  
+Access the deployed app here:  
+👉 https://credit-card-fraud-detection-az123.streamlit.app
 
 ---
 
-## Models Used
+## 🧠 Problem Statement
 
-###  Logistic Regression (Baseline Model)
-
-- Applied class weighting to handle imbalance
-- Performed threshold tuning to improve precision
-- Served as baseline model
-
-Performance (after tuning):
-
-- Recall ≈ 61%
-- Precision ≈ 27%
+Credit card fraud detection is a highly imbalanced classification problem where fraudulent transactions represent a very small fraction of total transactions. Traditional accuracy metrics are misleading, making it necessary to focus on recall, precision, and threshold optimization.
 
 ---
 
-### XGBoost (Final Model)
+## 📊 Dataset Description
 
-- Used `scale_pos_weight` to handle class imbalance
-- Captured nonlinear fraud patterns effectively
-- Achieved significantly better performance
+The dataset contains anonymized credit card transaction data including:
 
-Final performance (after threshold tuning):
+- Transaction amount
+- Merchant location
+- Customer location
+- Transaction category
+- Time-based features
+- Demographic attributes
 
-- Recall ≈ 85%
-- Precision ≈ 61%
-- ROC-AUC ≈ 0.99
-
----
-
-## Model Evaluation Strategy
-
-Due to class imbalance, accuracy alone is not meaningful.
-
-Key evaluation metrics used:
-
-- Precision
-- Recall
-- F1-Score
-- ROC-AUC
-- Confusion Matrix
-
-Threshold tuning was performed to balance fraud detection capability and false alarm rate.
+Target variable:
+- `0` → Normal Transaction  
+- `1` → Fraudulent Transaction  
 
 ---
 
-## External Validation
+## ⚙️ Key Features of the Project
 
-The final model was tested on a completely unseen dataset to ensure real-world reliability.
-
-External test performance:
-
-- Recall ≈ 79%
-- Precision ≈ 50%
-
-This confirms that the model generalizes well and does not suffer from overfitting.
+✔ End-to-end ML pipeline  
+✔ Handling severe class imbalance  
+✔ Threshold tuning for real-world decision making  
+✔ Model comparison and evaluation  
+✔ Live web deployment  
+✔ Interactive prediction interface  
 
 ---
 
-## Model Saving
-
-The final trained pipeline (preprocessing + XGBoost model) was saved using Joblib for deployment readiness.
-
----
-
-## Key Learnings
-
-- Handling class imbalance is critical in fraud detection
-- Threshold tuning is essential for real-world ML systems
-- Linear models have limitations in complex pattern detection
-- Ensemble models like XGBoost significantly improve performance
-- Model evaluation should always include external validation
-
----
-
-## Tech Stack
+## 🛠️ Technologies Used
 
 - Python
-- Pandas, NumPy
+- Pandas & NumPy
 - Scikit-Learn
 - XGBoost
-- Matplotlib, Seaborn
+- Streamlit
 - Joblib
 
 ---
 
-## Project Structure
-- Logistic Regression Notebook
-- XGBoost Model Notebook
-- Saved Model Pipeline (.pkl)
+## 🤖 Model Development Workflow
+
+### 1️⃣ Data Preprocessing
+- Feature engineering
+- Handling categorical variables
+- Scaling numerical features
+
+---
+
+### 2️⃣ Handling Class Imbalance
+Used cost-sensitive learning with:
+scale_pos_weight = (# Normal Transactions / # Fraud Transactions)
+
+
+This ensured the model properly learned minority fraud patterns.
+
+---
+
+### 3️⃣ Baseline Model — Logistic Regression
+
+Performance:
+- Recall ≈ 61%
+- Precision ≈ 27%
+
+Limitations:
+- Could not capture nonlinear fraud patterns.
+
+---
+
+### 4️⃣ Final Model — XGBoost
+
+Why XGBoost?
+- Captures complex nonlinear relationships
+- Handles imbalanced data effectively
+- Provides superior fraud detection capability
+
+---
+
+## 📈 Final Model Performance
+
+After threshold optimization:
+
+- Fraud Recall: **~85%**
+- Fraud Precision: **~61%**
+- ROC-AUC Score: **~0.99**
+
+This demonstrates strong fraud detection ability while reducing false alarms.
+
+---
+
+## 🎯 Threshold Optimization Strategy
+
+Instead of using default threshold (0.5), a custom threshold of **0.93** was selected to balance:
+
+- Maximizing fraud detection
+- Minimizing false positives
+
+This reflects real-world fraud detection decision making.
+
+---
+
+## 🌐 Deployment
+
+The trained ML pipeline was deployed as an interactive web application using Streamlit.
+
+Features of the deployed app:
+- User input interface
+- Real-time fraud prediction
+- Probability interpretation
+- Clear decision output
+
+---
+
+## 📂 Project Structure
+- Credit Card Fraud Project.ipynb
+- Fraud Detection - XGBoost Model.ipynb
+- app.py
+- fraud_xgboost_pipeline.pkl
+- requirements.txt
 - README.md
 
-## Future Improvements
-- Real-time fraud detection pipeline
-- Feature engineering using transaction history
-- Hyperparameter tuning using Optuna
-- Model deployment via API or web application
+---
+
+## 🧩 Key Learnings
+
+- Importance of handling imbalanced datasets
+- Precision vs Recall trade-off in real systems
+- Threshold tuning for business impact
+- Building deployable ML pipelines
+- Converting ML models into real-world applications
+
+---
+
+## 🔮 Future Improvements
+
+- Real-time API integration
+- Advanced feature engineering
+- Model explainability (SHAP)
+- Automated fraud alert system
+
+---
+
+⭐ If you found this project useful, consider giving it a star!
